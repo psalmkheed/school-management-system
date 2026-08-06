@@ -29,6 +29,7 @@ class AuthController extends Controller
             ], 401);
         }
 
+        /** @var User $user */
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
         session(['user_id' => $user->id]);

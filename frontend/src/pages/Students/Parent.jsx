@@ -36,7 +36,7 @@ const Parent = () => {
                   setResults(response.data);
             } catch (error) {
                   console.error("Failed to search parents:", error);
-                  setSearchError("Search failed. Please try again.");
+                  setSearchError(error.response?.data?.message);
             } finally {
                   setSearching(false);
             }
@@ -87,7 +87,7 @@ const Parent = () => {
                   selectParent(response.data);
             } catch (error) {
                   console.error("Failed to create parent:", error);
-                  setErrors({ form: "Couldn't save this parent. Please try again." });
+                  setErrors({ form: error.response?.data?.message || "Failed to create parent. Please try again." });
             } finally {
                   setSaving(false);
             }

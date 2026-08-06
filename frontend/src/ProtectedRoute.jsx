@@ -5,7 +5,7 @@ const ProtectedRoute = () => {
       const user = JSON.parse(localStorage.getItem("user"));
 
       if (!token || !user) {
-            return <Navigate to="/" replace />;
+            return <Navigate to="/auth/login" replace />;
       }
 
       return <Outlet />;

@@ -1,6 +1,7 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useParams } from "react-router-dom"
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb"
 import { useEffect, useState } from "react"
+
 
 const tabs = [
       { text: "Personal", path: "personal" },
@@ -48,6 +49,12 @@ const loadDraft = () => {
 };
 
 const RegisterLayout = () => {
+      const { id } = useParams();
+
+      const isEdit = Boolean(id);
+
+      console.log(id);      // "3"
+      console.log(isEdit);  // true
       // All wizard fields live in one object, shared across every tab via context.
       // Hydrated from sessionStorage so a refresh mid-way doesn't wipe progress.
       const [formData, setFormData] = useState(loadDraft);

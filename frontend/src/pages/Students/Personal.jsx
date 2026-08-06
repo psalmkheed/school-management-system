@@ -38,7 +38,7 @@ const Personal = () => {
 
       const handleNext = (e) => {
             e.preventDefault();
-            if (validate()) navigate("../parent");
+            if (validate()) navigate("/dashboard/students/register/parent");
       };
 
       return (

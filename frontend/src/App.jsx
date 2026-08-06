@@ -17,16 +17,20 @@ import Parent from "./pages/Students/Parent"
 import Academic from "./pages/Students/Academic"
 import Subjects from "./pages/Students/Subjects"
 import Review from "./pages/Students/Review"
+import ViewStudent from "./pages/Students/ViewStudent";
 
 function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/auth/login" element={<Login />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<DashboardElement />} />
-          <Route path="students" element={<Students />} />
+          <Route path="students" element={<Students />}>
+            <Route path="view/:id" element={<ViewStudent />} />
+          </Route>
+          {/* student's registration page routes */}
           <Route path="students/register/" element={<RegisterLayout />}>
             <Route index element={<Personal />} />
             <Route path="personal" element={<Personal />} />
@@ -35,10 +39,22 @@ function App() {
             <Route path="subjects" element={<Subjects />} />
             <Route path="review" element={<Review />} />
           </Route>
+          {/* edit student route */}
+          <Route path="students/register?student_id=:id/edit" element={<RegisterLayout />}>
+            <Route index element={<Personal />} />
+            <Route path="personal" element={<Personal />} />
+            <Route path="parent" element={<Parent />} />
+            <Route path="academic" element={<Academic />} />
+            <Route path="subjects" element={<Subjects />} />
+            <Route path="review" element={<Review />} />
+          </Route>
+          {/* view student route */}
+
+
           <Route path="staff" element={<Staff />} />
           <Route path="finance" element={<Finance />} />
           <Route path="inventory" element={<Inventory />} />
-          <Route path="academic" element={<Academics/>} />
+          <Route path="academic" element={<Academics />} />
           <Route path="school-settings" element={<SchoolSettings />} />
         </Route>
       </Route>

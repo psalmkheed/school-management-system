@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react';
 import { UserCircle } from "lucide-react"
 import axios from 'axios';
-import { Edit2, Eye, Plus, Trash2 } from 'lucide-react';
+import { Edit2, Eye, Plus } from 'lucide-react';
 
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useNavigate } from 'react-router-dom';
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
@@ -40,24 +51,17 @@ const Students = () => {
       .finally(() => setLoading(false));
   }, [])
 
-  const deleteStudent = (student) => {
-    if (!window.confirm(`Delete ${formatName(student)}? This can't be undone.`)) return;
-    // TODO: wire up DELETE /api/students/{id} once that endpoint exists
-    alert("Student Deleted Successfully");
-  }
   const editStudent = (student) => {
-    // TODO: navigate(`/dashboard/students/${student.id}/edit`) once that route exists
-    alert("Edit Student");
+    navigate(`/dashboard/students/register?student_id=${student.id}/edit`);
   }
   const viewStudent = (student) => {
-    // TODO: navigate(`/dashboard/students/${student.id}`) once that route exists
-    alert("View Student's Profile");
+    navigate(`/dashboard/students/view/${student.id}`)
   }
 
   return (
     <div className="text-slate-700 min-h-screen px-4 py-2">
       <div className="">
-        <Breadcrumb previousPage="Students"/>
+        <Breadcrumb previousPage="Students" />
         <div className='mb-6 border p-4 rounded-md bg-slate-800 flex items-center justify-between'>
           <div>
             <h1 className='text-2xl text-white font-bold'>Students</h1>
@@ -73,44 +77,78 @@ const Students = () => {
           <p className="text-gray-500 text-sm mb-4">No students registered yet.</p>
         )}
 
-        {!loading && students.length > 0 && (
-          <table className="min-w-1/2 w-full">
+        {!loading && students.length > 0 && (<>
+          <table className="min-w-1/2 w-full mb-4">
             <thead>
               <tr className="text-left bg-gray-200">
                 <td className="border-l-gray-200 p-2">#</td>
-                <td className="border-l-gray-200 p-2">Student Photo</td>
-                <td className="border-l-gray-200 p-2">Student ID</td>
-                <td className="border-l-gray-200 p-2">Name</td>
-                <td className="border-l-gray-200 p-2">Gender</td>
-                <td className="border-l-gray-200 p-2">DOB</td>
-                <td className="border-l-gray-200 p-2">Actions</td>
+
+                <td className="border-l-gray-200 p-2 uppercase text-xs">Student name</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">Student id</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">Gender</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">DOB</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">State of Origin</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">Status</td>
+                <td className="border-l-gray-200 p-2 uppercase text-xs">Actions</td>
               </tr>
             </thead>
             <tbody className="dark:text-gray-300">
               {students.map((student, index) => (
-                <tr className="border border-l-0 border-t-0 border-r-0 border-b-gray-300 dark:border-b-gray-800 hover:bg-gray-200 dark:hover:text-gray-500 cursor-pointer text-sm" key={student.id}>
+                <tr className="border border-l-0 border-t-0 border-r-0 border-b-gray-300 dark:border-b-gray-800 hover:bg-gray-200 dark:hover:text-gray-500 text-sm" key={student.id}>
 
                   <td className="p-2">{index + 1}</td>
-                  <td className="p-2"><img
-                    src={student.photo ? `${STORAGE_BASE_URL}/storage/${student.photo}` : (
-                      <UserCircle className="size-8 text-gray-300" />
-                    )}
-                    alt={formatName(student)}
-                    className="size-8 rounded-full object-cover"
-                  /></td>
+                  <td className="p-2 flex gap-2 items-center">
+                    <img
+                      src={student.photo ? `${STORAGE_BASE_URL}/storage/${student.photo}` : (
+                        <UserCircle className="size-8 text-gray-300" />
+                      )}
+                      alt={formatName(student)}
+                      className="size-8 rounded-full object-cover inline-block"
+                    />
+
+                    {formatName(student)}
+                  </td>
                   <td className="p-2">{student.student_id ?? "—"}</td>
-                  <td className="p-2">{formatName(student)}</td>
                   <td className="p-2">{student.gender ?? "—"}</td>
                   <td className="p-2">{student.date_of_birth ?? "—"}</td>
+                  <td className="p-2">{student.state_of_origin ?? "—"}</td>
+                  <td className="p-2">{student.status ?? "—"}</td>
                   <td className="flex gap-4 items-center p-2">
-                    <Trash2 className="size-4 text-red-600" onClick={() => { deleteStudent(student) }} />
-                    <Edit2 className="size-4 text-blue-600" onClick={() => { editStudent(student) }} />
-                    <Eye className="size-4 text-orange-600" onClick={() => { viewStudent(student) }} />
+
+                    <Edit2 className="size-4 text-blue-600 cursor-pointer" onClick={() => { editStudent(student) }} />
+                    <Eye className="size-4 text-orange-600 cursor-pointer" onClick={() => { viewStudent(student) }} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {students.length >= 10 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" isActive>1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">
+                    2
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">3</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </>
         )}
       </div>
     </div>

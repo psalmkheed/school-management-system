@@ -1,8 +1,23 @@
-import { LogOutIcon, Search } from "lucide-react";
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react';
 import { AuthContext } from '../../AuthContext'
+import {
+  LogOutIcon,
+  Search,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react"
+
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import axios from 'axios';
+import { Button } from '@base-ui/react';
 
 const Navbar = () => {
 
@@ -11,7 +26,6 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-
     try {
       const endpoint = "http://localhost:8000/api/logout";
       const response = await axios.post(endpoint, {},
@@ -28,7 +42,7 @@ const Navbar = () => {
 
         alert(response.data.message);
 
-        navigate("/", { replace: true })
+        navigate("/auth/login", { replace: true })
       }
 
     } catch (error) {
@@ -47,16 +61,37 @@ const Navbar = () => {
         </h2>
       </div>
       <div className="flex gap-5 items-center">
-        <form className="flex gap-2 relative w-70 hidden md:flex">
+        <form className="gap-2 relative w-70 hidden md:flex">
           <input type="search" name="search_button" id="searchBtn" className="w-full border border-slate-300 rounded-2xl px-3 py-2 focus:border-0 focus:outline-0 focus:ring-1 placeholder:font-medium placeholder:text-sm" placeholder="Search student..." />
           <Search className="absolute right-3 text-slate-500 size-4 -translate-y-1/2 top-1/2" />
         </form>
-        <div className="">
-          <button type="button" className="flex gap-2 bg-red-600/20 border border-red-400 text-red-500 px-2 py-1 rounded-md hover:bg-red-500 transition-all duration-200 hover:text-white text-xs font-medium" onClick={() => {
-            if (window.confirm("Are you sure you want to logout?")) {
-              logout();
-            }
-          }}><LogOutIcon className="size-4" />Logout</button>
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger render={
+              <Button variant:outline="true" className="border border-gray-200 rounded-full p-2 size-12 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition duration-300 shadow-md">
+              <UserIcon />
+              </Button>
+              } />
+            <DropdownMenuContent>
+              <DropdownMenuItem className="cursor-pointer">
+                <UserIcon />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/dashboard/school-settings")}>
+                <SettingsIcon />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive" onClick={() => {
+                if (window.confirm("Are you sure you want to logout?")) {
+                  logout();
+                }
+              }} className="cursor-pointer">
+                <LogOutIcon />
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </nav>

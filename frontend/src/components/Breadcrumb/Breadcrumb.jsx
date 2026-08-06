@@ -7,12 +7,12 @@ const Breadcrumb = ({ previousPage = "", currentPage = "" }) => {
             <>
                   <div className="flex gap-4 items-center text-gray-500 mb-4">
                         <div className="">
-                              <Link to="/dashboard" className="flex items-center gap-1"><House className="size-5" /> Dashboard</Link>
+                              <Link to="/dashboard" className="flex items-center gap-1 hover:text-gray-400"><House className="size-5" /> Dashboard</Link>
                         </div>
                         <ChevronRight className="size-6" />
                         <div className={`${currentPage ? 'text-gray-500' :'text-gray-400'}`}>
                               {currentPage ?
-                                          (<Link to={`../${previousPage.toLocaleLowerCase()}`}>
+                                    (<Link to={`../${previousPage.toLocaleLowerCase()}`} className="hover:text-gray-400">
                                                 {previousPage}
                                     </Link>) : previousPage  
                               }                                                

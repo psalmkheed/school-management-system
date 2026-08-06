@@ -21,9 +21,9 @@ class ParentGuardianController extends Controller
                 ->orWhere('phone', 'like', "%{$search}%");
         })->get();
 
-        if(!$parents){
+        if (count($parents) < 1) {
             return response()->json([
-                'message' => 'Parent/Guardian record not found try again.'
+                'message' => 'Parent/Guardian record not found.'
             ], 404);
         }
 
@@ -35,36 +35,41 @@ class ParentGuardianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validated submission fields
         $validated = $request->validate([
             'full_name' => 'required|string|max:30',
-            'phone'=> 'required|string|max:11',
-            'email'=> 'nullable|email',
-            'occupation'=> 'nullable|string',
-            'address'=> 'nullable|string',
+            'phone' => 'required|string|max:11|unique:parent_guardians,phone',
+            'email' => 'nullable|email|unique:parent_guardians,email',
+            'occupation' => 'nullable|string',
+            'address' => 'nullable|string',
 
         ]);
-
-        DB::transaction(
-            function () use ($validated) {
+        try {
+            DB::transaction(
+                function () use ($validated) {
 
                 ParentGuardian::create(
-                    [
-                        'full_name' => $validated['full_name'],
-                        'phone' => $validated['phone'],
-                        'email' => $validated['email'] ?? null,
-                        'occupation' => $validated['occupation'] ?? null,
-                        'address' => $validated['address'] ?? null,
-                    ]
-                );
-            }
-        );
+                        [
+                            'full_name' => $validated['full_name'],
+                            'phone' => $validated['phone'],
+                            'email' => $validated['email'] ?? null,
+                            'occupation' => $validated['occupation'] ?? null,
+                            'address' => $validated['address'] ?? null,
+                        ]
+                    );
+                }
+            );
 
-        return response()->json([
-            'message'=> 'Parent/Guardian created successfully'
-        ], 201);
+            return response()->json([
+                'message' => 'Parent/Guardian created successfully'
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to create Parent/Guardian',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
-
     /**
      * Display the specified resource.
      */

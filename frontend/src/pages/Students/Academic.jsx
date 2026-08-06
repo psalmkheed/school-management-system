@@ -67,7 +67,9 @@ const Academic = () => {
                               >
                                     <option value="">Select Session</option>
                                     {sessions.map((session) => (
-                                          <option value={session.id} key={session.id}>{session.academic_session_name}</option>
+                                          session.is_current === 1 && (
+                                                <option value={session.id} key={session.id} selected>{session.academic_session_name}</option>
+                                          )
                                     ))}
                               </select>
                               {errors.academic_session_id && <span className="text-red-600 text-sm">{errors.academic_session_id}</span>}

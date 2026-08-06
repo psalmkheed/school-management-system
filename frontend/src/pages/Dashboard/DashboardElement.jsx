@@ -11,16 +11,22 @@ const DashboardElement = () => {
       ]
 
       const borderColors = {
-            red: "border-t-red-600",
-            violet: "border-t-violet-600",
-            green: "border-t-green-600",
-            blue: "border-t-blue-600",
+            red: "border-t-red-600 bg-red-50",
+            violet: "border-t-violet-600 bg-violet-50",
+            green: "border-t-green-600 bg-green-50",
+            blue: "border-t-blue-600 bg-blue-50",
       };
       const textColors = {
             red: "text-red-600",
             violet: "text-violet-600",
             green: "text-green-600",
             blue: "text-blue-600",
+      };
+      const iconBgColors = {
+            red: "bg-red-100 border border-red-200",
+            violet: "bg-violet-100 border border-violet-200",
+            green: "bg-green-100 border border-green-200",
+            blue: "bg-blue-100 border border-blue-200",
       };
       return (
             <div className="text-slate-700 min-h-screen px-4 py-2 dark:text-gray-300">
@@ -34,14 +40,15 @@ const DashboardElement = () => {
                               {gridCards.map(({ id, title, icon: Icon, count, color }) => {
                                     const borderClass = borderColors[color] || "border-t-gray-500";
                                     const textClass = textColors[color] || "border-t-gray-500";
+                                    const iconBgClass = iconBgColors[color] || "bg-gray-200";
                                     return (
-                                          <div className={`p-4 flex justify-between rounded-md shadow-sm  gap-3 border-t-2 h-36 items-center ${borderClass} border border-gray-100`} key={id}>
+                                          <div className={`p-4 flex justify-between rounded-md shadow-sm  gap-3 border-t-2 h-36 items-center ${borderClass}`} key={id}>
                                                 <div className="text-start">
                                                       <h2 className="font-bold">{title}</h2>
                                                       <p className={`${textClass} font-bold text-4xl`}>{count}</p>
                                                 </div>
-                                                <div className={`rounded-full bg-${color}-50 border border-gray-300 p-3`}>
-                                                <Icon className={`size-8 ${textClass}`} />
+                                                <div className={`rounded-full ${iconBgClass} p-2`}>
+                                                      <Icon className={`size-6 ${textClass}`} />
                                                 </div>
 
                                           </div>
