@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
 import {User, LayoutDashboard, Landmark, ShelvingUnit, Menu, Cog, Book} from "lucide-react"
 import { useState } from 'react';
+import { BsDatabaseFillAdd } from 'react-icons/bs';
 const Sidebar = () => {
 
       const [openMenu, setMenu] = useState(false);
 
       const sidebarItems = [
             { id: 1, label: 'Dashboard', link: "/", icon: LayoutDashboard },
-            { id: 2, label: "Students", link: "/students", icon: User  },
+            { id: 2, label: "Students", link: "/students", icon: BsDatabaseFillAdd },
             { id: 3, label: "Staff", link: "/staff", icon: User },
             { id: 4, label: "Academics", link: "/academic", icon: Book },
             { id: 5, label: "Finance", link: "/finance", icon:  Landmark },
@@ -38,7 +39,7 @@ const Sidebar = () => {
                         </div>
                         <div className="flex flex-col gap-0">
                               <h2 className="text-slate-200">
-                                    Office Management
+                                    Student Management
                               </h2>
                               <span className="text-[10px] text-stone-200 italic">
                                     We Design SYSTEMS that work

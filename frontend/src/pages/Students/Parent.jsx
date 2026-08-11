@@ -113,7 +113,7 @@ const Parent = () => {
                               <button
                                     type="button"
                                     onClick={clearSelection}
-                                    className="text-blue-600 text-sm font-medium"
+                                    className="text-slate-600 text-sm font-medium"
                               >
                                     Change
                               </button>
@@ -133,7 +133,7 @@ const Parent = () => {
                                     <button
                                           type="submit"
                                           disabled={searching}
-                                          className="bg-blue-600 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
+                                          className="bg-slate-900 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
                                     >
                                           {searching ? "Searching..." : "Search"}
                                     </button>
@@ -152,7 +152,7 @@ const Parent = () => {
                                                       <button
                                                             type="button"
                                                             onClick={() => selectParent(parent)}
-                                                            className="bg-blue-600 text-white rounded-md px-3 py-1 text-sm font-medium"
+                                                            className="bg-slate-900 text-white rounded-md px-3 py-1 text-sm font-medium"
                                                       >
                                                             Select
                                                       </button>
@@ -166,7 +166,7 @@ const Parent = () => {
                               <h2 className="text-slate-800 font-medium mb-2">Add New Parent</h2>
                               {errors.form && <p className="text-red-600 text-sm mb-2">{errors.form}</p>}
 
-                              <form onSubmit={handleCreateParent} className="grid grid-cols-2 gap-4">
+                              <form onSubmit={handleCreateParent} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="flex flex-col gap-2">
                                           <label htmlFor="full_name" className="text-gray-500">Full Name<span className="text-red-600">*</span></label>
                                           <input
@@ -175,7 +175,7 @@ const Parent = () => {
                                                 id="full_name"
                                                 value={newParent.full_name}
                                                 onChange={handleNewParentChange}
-                                                className={`border rounded-md p-2 focus:outline-0 ${errors.full_name ? "border-red-500" : "border-gray-300"}`}
+                                                className={`border rounded-md p-2 focus:outline-0 placeholder:text-gray-300 ${errors.full_name ? "border-red-500" : "border-gray-300"}`} placeholder="Mr. John Doe"
                                           />
                                           {errors.full_name && <span className="text-red-600 text-sm">{errors.full_name}</span>}
                                     </div>
@@ -188,7 +188,7 @@ const Parent = () => {
                                                 id="phone"
                                                 value={newParent.phone}
                                                 onChange={handleNewParentChange}
-                                                className={`border rounded-md p-2 focus:outline-0 ${errors.phone ? "border-red-500" : "border-gray-300"}`}
+                                                className={`border rounded-md p-2 focus:outline-0 placeholder:text-gray-300 ${errors.phone ? "border-red-500" : "border-gray-300"}`} placeholder="08012345678"
                                           />
                                           {errors.phone && <span className="text-red-600 text-sm">{errors.phone}</span>}
                                     </div>
@@ -201,7 +201,7 @@ const Parent = () => {
                                                 id="email"
                                                 value={newParent.email}
                                                 onChange={handleNewParentChange}
-                                                className={`border rounded-md p-2 focus:outline-0 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                                                className={`border rounded-md p-2 focus:outline-0 placeholder:text-gray-300 ${errors.email ? "border-red-500" : "border-gray-300"}`} placeholder="xyz@mail.com"
                                           />
                                           {errors.email && <span className="text-red-600 text-sm">{errors.email}</span>}
                                     </div>
@@ -214,11 +214,11 @@ const Parent = () => {
                                                 id="occupation"
                                                 value={newParent.occupation}
                                                 onChange={handleNewParentChange}
-                                                className="border border-gray-300 rounded-md p-2 focus:outline-0"
+                                                className="border border-gray-300 rounded-md p-2 focus:outline-0 placeholder:text-gray-300" placeholder="Web Developer"
                                           />
                                     </div>
 
-                                    <div className="flex flex-col gap-2 col-span-2">
+                                    <div className="flex flex-col gap-2 md:col-span-2">
                                           <label htmlFor="address" className="text-gray-500">Address</label>
                                           <textarea
                                                 name="address"
@@ -226,15 +226,15 @@ const Parent = () => {
                                                 value={newParent.address}
                                                 onChange={handleNewParentChange}
                                                 rows={2}
-                                                className="border border-gray-300 rounded-md p-2 focus:outline-0"
+                                                className="border border-gray-300 rounded-md p-2 focus:outline-0 placeholder:text-gray-300" placeholder="City, State"
                                           />
                                     </div>
 
-                                    <div className="col-span-2 flex justify-end">
+                                    <div className="md:col-span-2 md:flex justify-end">
                                           <button
                                                 type="submit"
                                                 disabled={saving}
-                                                className="bg-blue-600 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
+                                                className="bg-slate-900 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
                                           >
                                                 {saving ? "Saving..." : "+ Add New Parent"}
                                           </button>
@@ -254,7 +254,7 @@ const Parent = () => {
                         <button
                               type="button"
                               onClick={handleNext}
-                              className="bg-blue-600 text-white rounded-md px-4 py-2 font-medium"
+                              className="bg-slate-900 text-white rounded-md px-4 py-2 font-medium"
                         >
                               Next: Academic
                         </button>

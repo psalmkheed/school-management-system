@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useOutletContext } from "react-router-dom"
 import axios from "axios";
+import { Calendar } from "@/components/ui/calendar";
+import {
+      Popover,
+      PopoverContent,
+      PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
@@ -55,7 +63,7 @@ const Academic = () => {
 
                   {loadError && <p className="text-red-600 text-sm my-2">{loadError}</p>}
 
-                  <form onSubmit={handleNext} className="my-4 grid grid-cols-3 gap-4">
+                  <form onSubmit={handleNext} className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="flex flex-col gap-2">
                               <label htmlFor="academic_session_id" className="text-gray-500">Academic Session<span className="text-red-600">*</span></label>
                               <select
@@ -143,17 +151,52 @@ const Academic = () => {
 
                         <div className="flex flex-col gap-2">
                               <label htmlFor="admission_date" className="text-gray-500">Admission Date</label>
-                              <input
-                                    type="date"
-                                    name="admission_date"
-                                    id="admission_date"
-                                    value={formData.admission_date}
-                                    onChange={handleChange}
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-0"
-                              />
+                              <Popover>
+                                    <PopoverTrigger asChild>
+                                          <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="default"
+                                                className="w-full justify-start text-left font-normal"
+                                          >
+                                                <CalendarIcon className="mr-2 h-4 w-4" />
+
+                                                {formData.admission_date
+                                                      ? new Date(formData.admission_date).toLocaleDateString()
+                                                      : "Select date of birth"}
+                                          </Button>
+                                    </PopoverTrigger>
+
+                                    <PopoverContent className="w-auto p-0">
+                                          <Calendar
+                                                mode="single"
+                                                captionLayout="dropdown"
+                                                selected={
+                                                      formData.admission_date
+                                                            ? new Date(formData.admission_date)
+                                                            : undefined
+                                                }
+                                                onSelect={(date) => {
+                                                      handleChange({
+                                                            target: {
+                                                                  name: "admission_date",
+                                                                  value: date
+                                                                        ? `${date.getFullYear()}-${String(
+                                                                              date.getMonth() + 1
+                                                                        ).padStart(2, "0")}-${String(
+                                                                              date.getDate()
+                                                                        ).padStart(2, "0")}`
+                                                                        : "",
+                                                            },
+                                                      });
+                                                }}
+                                                initialFocus
+                                          />
+                                    </PopoverContent>
+                              </Popover>
                         </div>
 
-                        <div className="col-span-3 flex justify-between">
+                        <div className="md:col-span-3 flex justify-between">
                               <button
                                     type="button"
                                     onClick={() => navigate("../parent")}
@@ -163,7 +206,7 @@ const Academic = () => {
                               </button>
                               <button
                                     type="submit"
-                                    className="bg-blue-600 text-white rounded-md px-4 py-2 font-medium"
+                                    className="bg-slate-900 text-white rounded-md px-4 py-2 font-medium"
                               >
                                     Next: Subjects
                               </button>

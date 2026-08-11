@@ -23,15 +23,15 @@ const DashboardElement = () => {
             blue: "text-blue-600",
       };
       const iconBgColors = {
-            red: "bg-red-100 border border-red-200",
-            violet: "bg-violet-100 border border-violet-200",
-            green: "bg-green-100 border border-green-200",
-            blue: "bg-blue-100 border border-blue-200",
+            red: "bg-red-600 border border-red-200",
+            violet: "bg-violet-600 border border-violet-200",
+            green: "bg-green-600 border border-green-200",
+            blue: "bg-blue-600 border border-blue-200",
       };
       return (
             <div className="text-slate-700 min-h-screen px-4 py-2 dark:text-gray-300">
                   <div className="flex flex-col gap-1">
-                        <h1 className="text-3xl font-bold">Dashboard Overview</h1>
+                        <h1 className="text-xl font-bold">Dashboard Overview</h1>
                         <p className="text-sm">
                               Monitor hostel attendance and student activities.
                         </p>
@@ -48,7 +48,7 @@ const DashboardElement = () => {
                                                       <p className={`${textClass} font-bold text-4xl`}>{count}</p>
                                                 </div>
                                                 <div className={`rounded-full ${iconBgClass} p-2`}>
-                                                      <Icon className={`size-6 ${textClass}`} />
+                                                      <Icon className={`size-6 text-white`} />
                                                 </div>
 
                                           </div>
@@ -57,6 +57,10 @@ const DashboardElement = () => {
                               })}
 
                         </div>
+                  </div>
+                  <div className="">
+                        <h1 className="text-xl font-bold">Recent Activities</h1>
+                        <div className="h-48 rounded-md shadow-sm my-4 bg-gray-100 border border-gray-200 p-4"> </div>
                   </div>
             </div>
       )

@@ -44,7 +44,6 @@ class Student extends Model
             ->withTimestamps();
     }
 
-
     public function studentSubjects()
     {
         return $this->hasMany(StudentSubject::class);

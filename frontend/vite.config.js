@@ -7,8 +7,9 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// https://vite.dev/config/
 export default defineConfig({
+  cacheDir: path.resolve(__dirname, '.vite-cache'),
+
   plugins: [
     react(),
     tailwindcss()
@@ -16,7 +17,7 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
 })

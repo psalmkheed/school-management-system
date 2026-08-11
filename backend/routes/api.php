@@ -23,9 +23,9 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/students', [StudentController::class, 'store']);
-Route::get('/students', function(){
-    return Student::all();
-});
+Route::get('/students/check', [StudentController::class, 'checkStudent']);
+Route::get('/students', [StudentController::class, 'index']);
+
 Route::get('/school-classes', [SchoolClassController::class, 'index']);
 Route::get('/departments', [DepartmentController::class, 'index']);
 Route::get('/sessions', [AcademicSessionController::class, 'index']);

@@ -4,8 +4,7 @@ import axios from 'axios';
 import LoginImg from '../../assets/login_img.jpg';
 import { AuthContext } from '../../AuthContext';
 
-import './Login.css';
-import { CircleCheck, CircleX } from 'lucide-react';
+import { showToast } from '@/components/Toaster/Toaster';
 
 const Login = () => {
 
@@ -28,10 +27,6 @@ const Login = () => {
             });
       };
 
-      const [message, setMessage] = useState("");
-
-      const [messageType, setMessageType] = useState("success");
-
       const handleSubmit = async (e) => {
             e.preventDefault();
 
@@ -43,12 +38,8 @@ const Login = () => {
                   const response = await axios.post(endpoint, formData);
 
                   if (response.data.status === 'success') {
-                        setMessageType("success");
-                        setMessage(response.data.message);
 
-                        setTimeout(() => {
-                              setMessage("");
-                        }, 3000);
+                        showToast("Success", response.data.message, "success");
 
                         setFormData({
                               name: "",
@@ -62,49 +53,27 @@ const Login = () => {
                               localStorage.setItem("user", JSON.stringify(response.data.user));
 
                               setUser(response.data.user);
-
                               navigate('/dashboard', { redirect: true });
                         } else if (!response.data.token) {
                               navigate('/', { replace: true });
                         }
                   } else if (response.data.status === 'error') {
-                        setMessage(response.data.message);
+                        showToast("Error", response.data.message, "error");
+                        
                   }
             } catch (error) {
-                  setMessageType("error");
-                  setMessage(error.response.data.message || "Something went wrong");
-
-                  setTimeout(() => {
-                        setMessage("");
-                  }, 3000);
+                  showToast("Error", error.response.data.message || "Something went wrong", "error");
             }
       };
 
       return (
             <div className="flex items-center justify-center min-h-screen p-8">
-
-
                   <div
                         className={`grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-xl bg-white dark:bg-slate-900 dark:text-white md:grid-cols-2 shadow-md shadow-slate-800/10`}
                   >
                         {/* Form */}
                         <div className="flex grow items-center px-6 py-10 sm:px-10 sm:py-14 relative">
-                              {message && (
-                                    <div
-                                          className={`absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-md py-1 px-2 max-w-sm ${messageType === "success"
-                                                ? "bg-green-600 text-green-100"
-                                                : "bg-red-600 text-red-100"
-                                                }`}
-                                    >
-                                          {messageType === "success" ? (
-                                                <CircleCheck className="size-4" />
-                                          ) : (
-                                                <CircleX className="size-4" />
-                                          )}
-
-                                          <span>{message}</span>
-                                    </div>
-                              )}
+                            
                               <div className="grow">
                                     <div className="text-center">
                                           <svg

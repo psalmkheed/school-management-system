@@ -1,40 +1,26 @@
 import { useEffect, useState } from 'react';
-import { UserCircle } from "lucide-react"
 import axios from 'axios';
-import { Edit2, Eye, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '@/components/Toaster/Toaster';
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-
+import { getColumns } from './columns';
+import { StudentDataTable } from './StudentDataTable';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
-
-const STORAGE_BASE_URL = (import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api").replace("/api", "");
-
-
-const formatName = (student) => {
-  const parts = [student.first_name, student.other_name, student.surname].filter(Boolean);
-  if (parts.length === 0) return "—";
-  return parts
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-};
 
 const Students = () => {
   const navigate = useNavigate()
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
+
+
+  // showToast notification
+
+
 
   const addStudent = () => {
     navigate("/dashboard/students/register");
@@ -46,6 +32,11 @@ const Students = () => {
       .then(res => setStudents(res.data))
       .catch((error) => {
         console.error("Failed to load students:", error);
+
+        showToast("Error loading students",
+          error?.res.data?.message || "Failed to load students.",
+          "error"
+        );
         setLoadError("Couldn't load students. Please refresh and try again.");
       })
       .finally(() => setLoading(false));
@@ -57,6 +48,11 @@ const Students = () => {
   const viewStudent = (student) => {
     navigate(`/dashboard/students/view/${student.id}`)
   }
+
+  const columns = getColumns(
+    editStudent,
+    viewStudent,
+  );
 
   return (
     <div className="text-slate-700 min-h-screen px-4 py-2">
@@ -74,80 +70,16 @@ const Students = () => {
         {loading && <p className="text-gray-400 text-sm mb-4">Loading students...</p>}
 
         {!loading && !loadError && students.length === 0 && (
-          <p className="text-gray-500 text-sm mb-4">No students registered yet.</p>
+
+          showToast("Info", "No students registered yet.", "info")
+          // <p className="text-gray-500 text-sm mb-4">No students registered yet.</p>
         )}
 
         {!loading && students.length > 0 && (<>
-          <table className="min-w-1/2 w-full mb-4">
-            <thead>
-              <tr className="text-left bg-gray-200">
-                <td className="border-l-gray-200 p-2">#</td>
-
-                <td className="border-l-gray-200 p-2 uppercase text-xs">Student name</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">Student id</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">Gender</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">DOB</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">State of Origin</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">Status</td>
-                <td className="border-l-gray-200 p-2 uppercase text-xs">Actions</td>
-              </tr>
-            </thead>
-            <tbody className="dark:text-gray-300">
-              {students.map((student, index) => (
-                <tr className="border border-l-0 border-t-0 border-r-0 border-b-gray-300 dark:border-b-gray-800 hover:bg-gray-200 dark:hover:text-gray-500 text-sm" key={student.id}>
-
-                  <td className="p-2">{index + 1}</td>
-                  <td className="p-2 flex gap-2 items-center">
-                    <img
-                      src={student.photo ? `${STORAGE_BASE_URL}/storage/${student.photo}` : (
-                        <UserCircle className="size-8 text-gray-300" />
-                      )}
-                      alt={formatName(student)}
-                      className="size-8 rounded-full object-cover inline-block"
-                    />
-
-                    {formatName(student)}
-                  </td>
-                  <td className="p-2">{student.student_id ?? "—"}</td>
-                  <td className="p-2">{student.gender ?? "—"}</td>
-                  <td className="p-2">{student.date_of_birth ?? "—"}</td>
-                  <td className="p-2">{student.state_of_origin ?? "—"}</td>
-                  <td className="p-2">{student.status ?? "—"}</td>
-                  <td className="flex gap-4 items-center p-2">
-
-                    <Edit2 className="size-4 text-blue-600 cursor-pointer" onClick={() => { editStudent(student) }} />
-                    <Eye className="size-4 text-orange-600 cursor-pointer" onClick={() => { viewStudent(student) }} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {students.length >= 10 && (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">
-                    2
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
+          <StudentDataTable
+            columns={columns}
+            data={students}
+          />
         </>
         )}
       </div>

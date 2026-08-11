@@ -1,6 +1,11 @@
 import { NavLink, Outlet, useParams } from "react-router-dom"
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb"
 import { useEffect, useState } from "react"
+import axios from "axios";
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+
+
 
 
 const tabs = [
@@ -49,6 +54,9 @@ const loadDraft = () => {
 };
 
 const RegisterLayout = () => {
+
+      const [studentExists, setStudentExists] = useState(false);
+
       const { id } = useParams();
 
       const isEdit = Boolean(id);
@@ -71,26 +79,34 @@ const RegisterLayout = () => {
       }, [formData]);
 
       const handleChange = (e) => {
-            setFormData({
-                  ...formData,
-                  [e.target.name]: e.target.value,
-            });
+            const { name, value } = e.target;
+
+            setFormData((prev) => ({
+                  ...prev,
+                  [name]: value,
+            }));
+
+            // Reset the previous result when student ID changes
+            if (name === "student_id") {
+                  setStudentExists(false);
+            }
       };
 
+      
       return (
+
             <div className="px-4 py-2">
                   <Breadcrumb previousPage="Students" currentPage="Register" />
                   <div className="dark:bg-gray-900 border min-h-screen rounded-md border-gray-300 p-4">
-                        <div className="grid grid-cols-5 gap-5">
+                        <div className="bg-slate-900 grid grid-cols-5 gap-5 p-2 rounded-full">
                               {tabs.map(({ text, path }) => (
                                     <NavLink
                                           key={path}
                                           to={path}
                                           className={({ isActive }) =>
-                                                `rounded-md p-2 font-medium text-center ${
-                                                      isActive
-                                                            ? "bg-blue-600 text-white"
-                                                            : "bg-gray-200 text-gray-400"
+                                                `rounded-full text-xs md:text-sm p-2 text-center flex items-center justify-center ${isActive
+                                                      ? "bg-gray-200 text-slate-900 font-bold"
+                                                      : "bg-slate-900 text-white"
                                                 }`
                                           }
                                     >

@@ -91,7 +91,7 @@ const Subjects = () => {
                               {compulsory.length > 0 && (
                                     <div className="mb-4">
                                           <h2 className="text-gray-500 text-sm mb-2">Compulsory</h2>
-                                          <div className="grid grid-cols-3 gap-2">
+                                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                                                 {compulsory.map((cs) => (
                                                       <label key={cs.subject_id} className="flex items-center gap-2 text-slate-800">
                                                             <input type="checkbox" checked disabled />
@@ -105,7 +105,7 @@ const Subjects = () => {
                               {optional.length > 0 && (
                                     <div className="mb-4">
                                           <h2 className="text-gray-500 text-sm mb-2">Optional</h2>
-                                          <div className="grid grid-cols-3 gap-2">
+                                          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                                                 {optional.map((cs) => (
                                                       <label key={cs.subject_id} className="flex items-center gap-2 text-gray-600">
                                                             <input
@@ -130,7 +130,7 @@ const Subjects = () => {
                                     </button>
                                     <button
                                           type="submit"
-                                          className="bg-blue-600 text-white rounded-md px-4 py-2 font-medium"
+                                          className="bg-slate-900 text-white rounded-md px-4 py-2 font-medium"
                                     >
                                           Next: Review
                                     </button>

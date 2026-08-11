@@ -14,14 +14,17 @@ import Academics from "./pages/Academic/Academic";
 import RegisterLayout from "./pages/Students/RegisterLayout"
 import Personal from "./pages/Students/Personal"
 import Parent from "./pages/Students/Parent"
-import Academic from "./pages/Students/Academic"
-import Subjects from "./pages/Students/Subjects"
-import Review from "./pages/Students/Review"
+import Academic from "./pages/Students/Academic";
+import Subjects from "./pages/Students/Subjects";
+import Review from "./pages/Students/Review";
 import ViewStudent from "./pages/Students/ViewStudent";
+import { Toaster } from "./components/ui/toast";
+
 
 function App() {
 
   return (
+    <>
     <Routes>
       <Route path="/auth/login" element={<Login />} />
       <Route element={<ProtectedRoute />}>
@@ -30,6 +33,7 @@ function App() {
           <Route path="students" element={<Students />}>
             <Route path="view/:id" element={<ViewStudent />} />
           </Route>
+
           {/* student's registration page routes */}
           <Route path="students/register/" element={<RegisterLayout />}>
             <Route index element={<Personal />} />
@@ -39,6 +43,7 @@ function App() {
             <Route path="subjects" element={<Subjects />} />
             <Route path="review" element={<Review />} />
           </Route>
+
           {/* edit student route */}
           <Route path="students/register?student_id=:id/edit" element={<RegisterLayout />}>
             <Route index element={<Personal />} />
@@ -48,9 +53,8 @@ function App() {
             <Route path="subjects" element={<Subjects />} />
             <Route path="review" element={<Review />} />
           </Route>
-          {/* view student route */}
 
-
+            {/* view student route */}
           <Route path="staff" element={<Staff />} />
           <Route path="finance" element={<Finance />} />
           <Route path="inventory" element={<Inventory />} />
@@ -59,6 +63,8 @@ function App() {
         </Route>
       </Route>
     </Routes>
+      <Toaster />
+    </>
   )
 }
 

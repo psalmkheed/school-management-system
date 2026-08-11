@@ -1,0 +1,196 @@
+{
+  "hash": "4afc7a95",
+  "configHash": "0362a36b",
+  "lockfileHash": "a787c47a",
+  "browserHash": "5353de5a",
+  "optimized": {
+    "@base-ui/react": {
+      "src": "../../node_modules/@base-ui/react/index.mjs",
+      "file": "@base-ui_react.js",
+      "fileHash": "0fea1415",
+      "needsInterop": false
+    },
+    "@base-ui/react/alert-dialog": {
+      "src": "../../node_modules/@base-ui/react/alert-dialog/index.mjs",
+      "file": "@base-ui_react_alert-dialog.js",
+      "fileHash": "4cef3185",
+      "needsInterop": false
+    },
+    "@base-ui/react/button": {
+      "src": "../../node_modules/@base-ui/react/button/index.mjs",
+      "file": "@base-ui_react_button.js",
+      "fileHash": "593da61f",
+      "needsInterop": false
+    },
+    "@base-ui/react/menu": {
+      "src": "../../node_modules/@base-ui/react/menu/index.mjs",
+      "file": "@base-ui_react_menu.js",
+      "fileHash": "eb8c4512",
+      "needsInterop": false
+    },
+    "@base-ui/react/popover": {
+      "src": "../../node_modules/@base-ui/react/popover/index.mjs",
+      "file": "@base-ui_react_popover.js",
+      "fileHash": "6112d370",
+      "needsInterop": false
+    },
+    "@base-ui/react/toast": {
+      "src": "../../node_modules/@base-ui/react/toast/index.mjs",
+      "file": "@base-ui_react_toast.js",
+      "fileHash": "374bd94e",
+      "needsInterop": false
+    },
+    "@tanstack/react-table": {
+      "src": "../../node_modules/@tanstack/react-table/build/lib/index.mjs",
+      "file": "@tanstack_react-table.js",
+      "fileHash": "63238c50",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "2bf1a483",
+      "needsInterop": false
+    },
+    "class-variance-authority": {
+      "src": "../../node_modules/class-variance-authority/dist/index.mjs",
+      "file": "class-variance-authority.js",
+      "fileHash": "99553866",
+      "needsInterop": false
+    },
+    "clsx": {
+      "src": "../../node_modules/clsx/dist/clsx.mjs",
+      "file": "clsx.js",
+      "fileHash": "84d5fb29",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.mjs",
+      "file": "lucide-react.js",
+      "fileHash": "6939c223",
+      "needsInterop": false
+    },
+    "react-day-picker": {
+      "src": "../../node_modules/react-day-picker/dist/esm/index.js",
+      "file": "react-day-picker.js",
+      "fileHash": "6d8098a7",
+      "needsInterop": false
+    },
+    "react-dom": {
+      "src": "../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "20f75d9d",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "046ec099",
+      "needsInterop": true
+    },
+    "react-icons/bi": {
+      "src": "../../node_modules/react-icons/bi/index.mjs",
+      "file": "react-icons_bi.js",
+      "fileHash": "19b6c80d",
+      "needsInterop": false
+    },
+    "react-icons/bs": {
+      "src": "../../node_modules/react-icons/bs/index.mjs",
+      "file": "react-icons_bs.js",
+      "fileHash": "20b30fab",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "d371073e",
+      "needsInterop": false
+    },
+    "react-icons/fa6": {
+      "src": "../../node_modules/react-icons/fa6/index.mjs",
+      "file": "react-icons_fa6.js",
+      "fileHash": "1d017e0b",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "477f2eb9",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "ce1ab83c",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "3e1c8a78",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "4fef5f7e",
+      "needsInterop": true
+    },
+    "tailwind-merge": {
+      "src": "../../node_modules/tailwind-merge/dist/bundle-mjs.mjs",
+      "file": "tailwind-merge.js",
+      "fileHash": "205b2c76",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "alert-dialog-YOm3zDAT": {
+      "file": "alert-dialog-YOm3zDAT.js",
+      "isDynamicEntry": false
+    },
+    "button-BBnXElJa": {
+      "file": "button-BBnXElJa.js",
+      "isDynamicEntry": false
+    },
+    "composite-Drz-COIA": {
+      "file": "composite-Drz-COIA.js",
+      "isDynamicEntry": false
+    },
+    "iconBase-iPpbYtyw": {
+      "file": "iconBase-iPpbYtyw.js",
+      "isDynamicEntry": false
+    },
+    "inertValue-Cs7g9-WH": {
+      "file": "inertValue-Cs7g9-WH.js",
+      "isDynamicEntry": false
+    },
+    "menu-DkU2Is2-": {
+      "file": "menu-DkU2Is2-.js",
+      "isDynamicEntry": false
+    },
+    "popover-BK79hspC": {
+      "file": "popover-BK79hspC.js",
+      "isDynamicEntry": false
+    },
+    "rolldown-runtime-B-1-B7_t": {
+      "file": "rolldown-runtime-B-1-B7_t.js",
+      "isDynamicEntry": false
+    },
+    "toast-DXImE5ft": {
+      "file": "toast-DXImE5ft.js",
+      "isDynamicEntry": false
+    },
+    "useButton-BhOXFPRq": {
+      "file": "useButton-BhOXFPRq.js",
+      "isDynamicEntry": false
+    },
+    "usePopupViewport-DOPNIq6y": {
+      "file": "usePopupViewport-DOPNIq6y.js",
+      "isDynamicEntry": false
+    },
+    "usePositioner-TdmYiu8s": {
+      "file": "usePositioner-TdmYiu8s.js",
+      "isDynamicEntry": false
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate, useOutletContext } from "react-router-dom"
 import axios from "axios";
+import { showToast } from '@/components/Toaster/Toaster'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
@@ -42,13 +43,19 @@ const Review = () => {
                         headers: { "Content-Type": "multipart/form-data" },
                   });
                   sessionStorage.removeItem("student-register-draft");
+                  // toast notification
+                  showToast("Success", "Student registered successfully!", "success");
+
                   navigate("/dashboard/students");
             } catch (error) {
                   console.error("Failed to register student:", error);
                   if (error.response?.data?.errors) {
                         const messages = Object.values(error.response.data.errors).flat().join(" ");
+
                         setSubmitError(messages);
                   } else {
+
+                        showToast("Error", "Something went wrong while saving. Please try again.", "error");
                         setSubmitError("Something went wrong while saving. Please try again.");
                   }
             } finally {
@@ -65,7 +72,7 @@ const Review = () => {
                         <p className="text-red-600 text-sm my-2">{submitError}</p>
                   )}
 
-                  <div className="grid grid-cols-3 gap-4 my-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
                         <div className="flex flex-col gap-1">
                               <span className="text-gray-400 text-sm">Student ID</span>
                               <span className="text-slate-800 font-medium">{formData.student_id || "—"}</span>
@@ -92,7 +99,7 @@ const Review = () => {
                               <span className="text-gray-400 text-sm">Admission Date</span>
                               <span className="text-slate-800 font-medium">{formData.admission_date || "—"}</span>
                         </div>
-                        <div className="flex flex-col gap-1 col-span-3">
+                        <div className="flex flex-col gap-1 md:col-span-3">
                               <span className="text-gray-400 text-sm">Subjects</span>
                               <ul className="text-slate-800 font-medium">
                                     {formData.subjects.length
@@ -116,7 +123,7 @@ const Review = () => {
                               type="button"
                               disabled={submitting}
                               onClick={handleSubmit}
-                              className="bg-blue-600 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
+                              className="bg-slate-900 disabled:opacity-50 text-white rounded-md px-4 py-2 font-medium"
                         >
                               {submitting ? "Saving..." : "Save Student"}
                         </button>
